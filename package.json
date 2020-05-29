@@ -1,6 +1,7 @@
 {
   "name": "my-company-angular-monolithict",
   "version": "0.0.0",
+  "author": "Israel Guzman - Angular Mastery ©",
   "license": "GNU General Public License v3.0",
   "scripts": {
     "ng": "ng",
