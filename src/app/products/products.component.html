@@ -1,0 +1,99 @@
+<div style="margin-bottom: 16px;" nz-row nzJustify="space-around">
+  <div nz-col nzSpan="1">
+    <button
+      nz-button
+      nzType="primary"
+      nzShape="circle"
+      [disabled]="page < 1"
+      (click)="loadPreviousPage()"
+    >
+      <i nz-icon nzType="arrow-left"></i>
+    </button>
+  </div>
+
+  <h2 style="text-align: center;" nz-col nzSpan="22">
+    Page {{ page + 1 }} of 11
+  </h2>
+
+  <div nz-col nzSpan="1">
+    <button
+      nz-button
+      nz-col
+      nzSpan="4"
+      nzType="primary"
+      nzShape="circle"
+      [disabled]="page >= 10"
+      (click)="loadNextPage()"
+    >
+      <i nz-icon nzType="arrow-right"></i>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="products$ | async as products">
+  <div
+    nz-row
+    nzJustify="space-around"
+    [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }"
+  >
+    <div nz-col class="product" [nzSpan]="6" *ngFor="let product of products">
+      <app-product-dard
+        [product]="product"
+        (click)="selectProduct(product)"
+      ></app-product-dard>
+    </div>
+  </div>
+</div>
+
+<nz-drawer
+  [nzVisible]="showDetail"
+  [nzWidth]="300"
+  [nzClosable]="false"
+  (nzOnClose)="close()"
+  *ngIf="selectedProduct"
+>
+  <p class="title" style="">{{ selectedProduct.name }}</p>
+  <img
+    style="height: 80px; width: auto; margin-bottom: 24px;"
+    [src]="selectedProduct.image"
+    [alt]="selectedProduct.name"
+  />
+  <nz-descriptions [nzColumn]="1" nzTitle="Detail">
+    <nz-descriptions-item nzTitle="Serie Amiibo" [nzSpan]="1">{{
+      selectedProduct.amiiboSeries
+    }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Personaje" [nzSpan]="1">{{
+      selectedProduct.character
+    }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Juego" [nzSpan]="1">{{
+      selectedProduct.gameSeries
+    }}</nz-descriptions-item>
+  </nz-descriptions>
+  <nz-divider></nz-divider>
+  <nz-descriptions [nzColumn]="1" nzTitle="Specifications">
+    <nz-descriptions-item nzTitle="Tipo" [nzSpan]="1">{{
+      selectedProduct.type
+    }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Head" [nzSpan]="1">{{
+      selectedProduct.head
+    }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Tail" [nzSpan]="1">{{
+      selectedProduct.tail
+    }}</nz-descriptions-item>
+  </nz-descriptions>
+  <nz-divider></nz-divider>
+  <nz-descriptions [nzColumn]="1" nzTitle="Lanzamientos">
+    <nz-descriptions-item nzTitle="Australia" [nzSpan]="1">{{
+      selectedProduct.release.au
+    }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Europa" [nzSpan]="1">{{
+      selectedProduct.release.eu
+    }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Japón" [nzSpan]="1">{{
+      selectedProduct.release.jp
+    }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Norte América" [nzSpan]="1">{{
+      selectedProduct.release.na
+    }}</nz-descriptions-item>
+  </nz-descriptions>
+</nz-drawer>

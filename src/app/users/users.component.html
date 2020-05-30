@@ -1,0 +1,133 @@
+<div class="results" *ngIf="limit$ | async as limit">
+  <h4>Results:</h4>
+  <nz-button-group>
+    <button
+      nz-button
+      nzType="default"
+      (click)="setResultsLimit(10)"
+      [class.active]="limit === 10"
+    >
+      10
+    </button>
+    <button
+      nz-button
+      nzType="default"
+      (click)="setResultsLimit(25)"
+      [class.active]="limit === 25"
+    >
+      25
+    </button>
+    <button
+      nz-button
+      nzType="default"
+      (click)="setResultsLimit(50)"
+      [class.active]="limit === 50"
+    >
+      50
+    </button>
+    <button
+      nz-button
+      nzType="default"
+      (click)="setResultsLimit(100)"
+      [class.active]="limit === 100"
+    >
+      100
+    </button>
+  </nz-button-group>
+</div>
+<br />
+<nz-table
+  #users
+  nzSize="small"
+  [nzData]="users$ | async"
+  [nzLoading]="isLoading$ | async"
+  [nzTotal]="total"
+  [(nzPageIndex)]="pageIndex"
+  [(nzPageSize)]="pageSize"
+  [nzShowSizeChanger]="true"
+>
+  <thead>
+    <tr>
+      <th>Avatar</th>
+      <th nzCustomFilter>
+        Name<i
+          class="ant-table-filter-icon"
+          #dropdown="nzDropdown"
+          nzType="search"
+          nzTrigger="click"
+          nzPlacement="bottomLeft"
+          [nzClickHide]="false"
+          [nzDropdownMenu]="menu"
+          [class.ant-table-filter-open]="dropdown.nzVisible"
+          nz-th-extra
+          nz-icon
+          nz-dropdown
+          nzTableFilter
+        ></i>
+      </th>
+      <th>Position</th>
+      <th>E-mail Address</th>
+      <th>Phone</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users.data">
+      <td>
+        <nz-avatar nzIcon="user" [nzSrc]="user.avatar"></nz-avatar>
+      </td>
+      <td>
+        {{ user.firstName + ' ' + user.lastName }}
+      </td>
+      <td>{{ user.position }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.phoneNumber }}</td>
+      <td>
+        <nz-button-group>
+          <button
+            nzType="default"
+            nzTooltipTitle="Individual sales"
+            nzTooltipPlacement="bottom"
+            nz-button
+            nz-tooltip
+            (click)="navigateToSales(user, 'individual-sales')"
+          >
+            <i nz-icon nzType="pie-chart"></i>
+          </button>
+          <button
+            nzType="default"
+            nzTooltipTitle="Team sales"
+            nzTooltipPlacement="bottom"
+            nz-button
+            nz-tooltip
+            (click)="navigateToSales(user, 'team-sales')"
+          >
+            <i nz-icon nzType="bar-chart"></i>
+          </button>
+        </nz-button-group>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <nz-input-group [nzSuffix]="suffixTemplate">
+    <input
+      type="text"
+      nz-input
+      autofocus
+      placeholder="Search name"
+      [formControl]="searchNameValue"
+    />
+  </nz-input-group>
+  <ng-template #suffixTemplate
+    ><i
+      nz-icon
+      nz-tooltip
+      class="ant-input-clear-icon"
+      nzTheme="fill"
+      nzType="close-circle"
+      (click)="resetNameSearch()"
+    ></i
+  ></ng-template>
+</nz-dropdown-menu>

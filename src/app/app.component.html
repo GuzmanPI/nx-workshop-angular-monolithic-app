@@ -1,10 +1,107 @@
-<img class="nx" src="https://nrwl.io/assets/nrwl-nx-blue.svg" alt="Nx" />
-<h1>{{title}}</h1>
-<h2>
-  <img
-    class="angular-bogota"
-    src="https://pbs.twimg.com/profile_images/1231695703778504705/J1YZAGmE_400x400.jpg"
-    alt="Angular Bogotá"
-  />
-  Angular Bogotá
-</h2>
+<nz-layout class="app-layout">
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+    *ngIf="session$ | async"
+  >
+    <div class="sidebar-logo">
+      <a href="https://angularmastery.com/" target="_blank">
+        <img src="../assets/images/primary-shield-logo.png" alt="logo" />
+        <h1>My Company</h1>
+      </a>
+    </div>
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+    >
+      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/dashboard">Dashboard</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Sales" nzIcon="dollar">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/users">Employees</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Inventory" nzIcon="container">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/products">Products</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header class="app-header">
+      <nz-page-header
+        *ngIf="session$ | async"
+        class="site-page-header"
+        (nzBack)="goBack()"
+        nzBackIcon
+        nzTitle="Title"
+      >
+      </nz-page-header>
+      <nz-page-header
+        *ngIf="!(session$ | async)"
+        class="site-page-header"
+        nzTitle="Bienvenido al Workshop"
+      >
+        <nz-page-header-extra>
+          <button nz-button nzType="primary" (click)="login()">
+            Iniciar sesión
+          </button>
+        </nz-page-header-extra>
+      </nz-page-header>
+
+      <!--      <div class="app-header">-->
+      <!--        <span-->
+      <!--          class="header-trigger"-->
+      <!--          (click)="isCollapsed = !isCollapsed"-->
+      <!--          *ngIf="session$ | async"-->
+      <!--        >-->
+      <!--          <i-->
+      <!--            class="trigger"-->
+      <!--            nz-icon-->
+      <!--            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"-->
+      <!--          ></i>-->
+      <!--        </span>-->
+      <!--        <button>Login</button>-->
+      <!--      </div>-->
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <div nz-row nzJustify="end">
+          <a
+            nz-col
+            nzSpan="3"
+            href="https://twitter.com/israelgp4"
+            target="_blank"
+            *ngIf="!(session$ | async)"
+          >
+            <img
+              src="https://camo.githubusercontent.com/27c721be6bcac1881e0f3798ee8e2795c58e428f/68747470733a2f2f696d672e69636f6e73382e636f6d2f706c6173746963696e652f34352f3030303030302f747769747465722e706e67"
+              alt="@israelgp4"
+            />
+            @israelgp4
+          </a>
+        </div>
+        <router-outlet></router-outlet>
+      </div>
+      <nz-footer>
+        <span>Data provided by Angular Mastery ©2020</span>
+      </nz-footer>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
