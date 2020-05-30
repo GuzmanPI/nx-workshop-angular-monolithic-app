@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "nx-workshop-angular-monolithic"
+    }
+  },
+  "defaultProject": "nx-workshop-angular-monolithic",
+  "cli": {
+    "analytics": "de027caa-eec4-44cb-91ba-04ba0da48cc3"
+  }
 }

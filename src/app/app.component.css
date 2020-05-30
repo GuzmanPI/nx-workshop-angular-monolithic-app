@@ -1,0 +1,23 @@
+/*
+ * Remove template code below
+ */
+:host {
+  position: inherit;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Futura-Light,sans-serif;
+  font-weight: 400;
+}
+.angular-bogota {
+  width: 45px;
+  margin-bottom: -12px;
+}
+.nx {
+  width: 250px;
+}
+h2 {
+  margin-bottom: 25px;
+  color: #003893;
+}
